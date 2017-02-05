@@ -20,3 +20,11 @@ Route::get('/about', function () {
 });
 
 Auth::routes();
+
+Route::group(['prefix' => '/admin', 'middleware' => 'auth'], function() {
+  Route::group(['prefix' => '/tasks'], function() {
+    Route::get('/', 'TasksController@index')->name('backend.tasks');
+    Route::get('/edit/{id?}', 'TasksController@edit')->name('backend.tasks.edit');
+    Route::post('/save/{id?}', 'TasksController@save')->name('backend.tasks.save');
+  });
+});
