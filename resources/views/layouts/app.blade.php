@@ -44,6 +44,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('backend.tasks.edit') }}">Create task</a></li>
+                        <li><a href="{{ route('backend.tasks', ['done' => 0]) }}">Ongoing tasks</a></li>
+                        <li><a href="{{ route('backend.tasks', ['done' => 1]) }}">Done tasks</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

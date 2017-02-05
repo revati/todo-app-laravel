@@ -10,4 +10,12 @@ class Task extends Model
   {
     return $this->belongsTo(User::class);
   }
+
+  public function scopePublished($query, $done = null)
+  {
+    if($done === null)
+      return $query;
+
+    return $query->where('done', $done);
+  }
 }

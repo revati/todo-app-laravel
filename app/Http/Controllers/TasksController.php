@@ -9,9 +9,13 @@ class TasksController
 {
   use ValidatesRequests;
 
-  public function index()
+  public function index(Request $request)
   {
-    $tasks = Auth::user()->tasks;
+    $this->validate($request, [
+      'done' => 'boolean'
+    ]);
+
+    $tasks = Auth::user()->tasks()->published($request->get('done'))->get();
 
     return view('tasks.list', compact('tasks'));
   }
