@@ -3,9 +3,12 @@
 Use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class TasksController
 {
+  use ValidatesRequests;
+
   public function index()
   {
     $tasks = Auth::user()->tasks;
@@ -22,6 +25,12 @@ class TasksController
 
   public function save(Request $request, $id = null)
   {
+    $this->validate($request, [
+      'title' => 'required|max:255',
+      'content' => 'required',
+      'done' => 'present|boolean'
+    ]);
+
     $task = $id ? Task::find($id) : new Task();
 
     $task->user()->associate(Auth::user());
